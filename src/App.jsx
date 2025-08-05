@@ -44,7 +44,7 @@ const App = () => {
         <Route path='/' element={
           <div>
             {
-              (showAddressModal) && <>
+              (showAddressModal) ? <>
                 {/* <PhoneOverlay setIsValidPhNumber={setIsValidPhNumber} isValidPhNumber={isValidPhNumber} phoneNumber={mobileNumber} setPhoneNumber={setMobileNumber} /> */}
                 <AddressModal
                   address={address}
@@ -52,9 +52,9 @@ const App = () => {
                   onConfirm={handleConfirm}
                   onClose={() => setShowAddressModal(false)}
                 />
-              </>
+              </> :
+                <HomePage address={address} />
             }
-            <HomePage address={address} />
           </div>
         } />
 

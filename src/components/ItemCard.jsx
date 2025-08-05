@@ -6,7 +6,7 @@ import { notify } from "../lib/Toaster";
 
 
 const ItemCard = ({ item, selectedItems, setSelectedItems }) => {
-    const area = localStorage.getItem('userAddress')?.sector || "ss";
+    const area = JSON.parse(localStorage.getItem('userAddress')).sector || 'ss';
     const [selectedCut, setSelectedCut] = useState(null);
     const [totalQuantity, setTotalQuantity] = useState();
     const [isLiked, setIsLiked] = useState(false);
@@ -19,7 +19,7 @@ const ItemCard = ({ item, selectedItems, setSelectedItems }) => {
 
     const priceSplit = String(item.price).split(",");
     const selectedAreaIndex =
-        area === "North Kolkata" ? 0 : area === "South Kolkata" ? 1 : 2;
+        area === "South Kolkata" ? 0 : area === "North Kolkata" ? 1 : 2;
     const [priceAccordingToArea, quantityAccordingToArea] =
         priceSplit[selectedAreaIndex]?.split("/").map((s) => s.trim()) || [];
 
