@@ -3,7 +3,6 @@ import React from 'react';
 import { FaWhatsapp } from 'react-icons/fa';
 
 const CompleteYourPayment = () => {
-    const phNo = localStorage.getItem('userMobile')
     return (
         <div className="min-h-screen bg-white flex items-center justify-center px-4">
             <div className="max-w-md w-full bg-white shadow-xl rounded-3xl p-8 text-center border border-gray-200">
