@@ -1,0 +1,234 @@
+{
+  "categories": [
+    {
+      "id": "farm-fresh",
+      "name": "Farm Fresh",
+      "icon": "🌱",
+      "subcategories": [
+        {
+          "id": "chicken",
+          "name": "Chicken",
+          "items": [
+            {
+              "id": "chicken-no-gile",
+              "name": "Chicken (without Gile-Mete)",
+              "price": 450,
+              "currency": "৳",
+              "unit": "kg",
+              "stock": 200,
+              "image": "photo-1618160702438-9b02ab6515c9"
+            },
+            {
+              "id": "chicken-with-gile",
+              "name": "Chicken (with Gile-Mete)",
+              "price": 480,
+              "currency": "৳",
+              "unit": "kg",
+              "stock": 200,
+              "image": "photo-1618160702438-9b02ab6515c9"
+            },
+            {
+              "id": "chicken-boneless",
+              "name": "Chicken (Boneless)",
+              "price": 650,
+              "currency": "৳",
+              "unit": "kg",
+              "stock": 200,
+              "image": "photo-1618160702438-9b02ab6515c9"
+            },
+            {
+              "id": "desi-chicken-large",
+              "name": "Desi Chicken Whole (Large)",
+              "price": 850,
+              "currency": "৳",
+              "unit": "piece",
+              "stock": 100,
+              "image": "photo-1618160702438-9b02ab6515c9"
+            },
+            {
+              "id": "desi-chicken-small",
+              "name": "Desi Chicken Whole (Small)",
+              "price": 650,
+              "currency": "৳",
+              "unit": "piece",
+              "stock": 100,
+              "image": "photo-1618160702438-9b02ab6515c9"
+            }
+          ]
+        },
+        {
+          "id": "fruit",
+          "name": "Fruit",
+          "items": [
+            {
+              "id": "dragon-fruit",
+              "name": "Dragon Fruit",
+              "price": 180,
+              "currency": "৳",
+              "unit": "piece",
+              "stock": 100,
+              "image": "photo-1465146344425-f00673922987"
+            },
+            {
+              "id": "orange",
+              "name": "Orange",
+              "price": 120,
+              "currency": "৳",
+              "unit": "kg",
+              "stock": 0,
+              "image": "photo-1465146344425-f00673922987"
+            },
+            {
+              "id": "apple",
+              "name": "Apple",
+              "price": 150,
+              "currency": "৳",
+              "unit": "kg",
+              "stock": 128,
+              "image": "photo-1465146344425-f00673922987"
+            }
+          ]
+        },
+        {
+          "id": "vegetable",
+          "name": "Vegetable",
+          "items": [
+            {
+              "id": "cauliflower",
+              "name": "Cauliflower",
+              "price": 60,
+              "currency": "৳",
+              "unit": "piece",
+              "stock": 107,
+              "image": "photo-1509316975850-ff9c5deb0cd9"
+            },
+            {
+              "id": "organic-cabbage",
+              "name": "Organic Cabbage Green",
+              "price": 45,
+              "currency": "৳",
+              "unit": "piece",
+              "stock": 121,
+              "image": "photo-1509316975850-ff9c5deb0cd9"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "fish",
+      "name": "Fish",
+      "icon": "🐟",
+      "subcategories": [
+        {
+          "id": "freshwater-fish",
+          "name": "Freshwater Fish",
+          "items": [
+            {
+              "id": "aar-fish",
+              "name": "Aar fish (Headless)",
+              "price": 320,
+              "currency": "৳",
+              "unit": "kg",
+              "stock": 500,
+              "image": "photo-1472396961693-142e6e269027"
+            },
+            {
+              "id": "mourola",
+              "name": "Mourola",
+              "price": 280,
+              "currency": "৳",
+              "unit": "kg",
+              "stock": 200,
+              "image": "photo-1472396961693-142e6e269027"
+            },
+            {
+              "id": "bata-fish",
+              "name": "Bata Fish",
+              "price": 380,
+              "currency": "৳",
+              "unit": "kg",
+              "stock": 200,
+              "image": "photo-1472396961693-142e6e269027"
+            },
+            {
+              "id": "bengal-katla",
+              "name": "Bengal Katla (Catla) Headless & Tailless",
+              "price": 420,
+              "currency": "৳",
+              "unit": "kg",
+              "stock": 1000,
+              "image": "photo-1472396961693-142e6e269027"
+            }
+          ]
+        },
+        {
+          "id": "seawater-fish",
+          "name": "Seawater Fish",
+          "items": [
+            {
+              "id": "bombey-duck",
+              "name": "Bombey Duck",
+              "price": 450,
+              "currency": "৳",
+              "unit": "kg",
+              "stock": 200,
+              "image": "photo-1500673922987-e212871fec22"
+            },
+            {
+              "id": "hilsha-medium",
+              "name": "Fresh Hilsha (Medium)",
+              "price": 1200,
+              "currency": "৳",
+              "unit": "kg",
+              "stock": 200,
+              "image": "photo-1500673922987-e212871fec22"
+            },
+            {
+              "id": "silver-pomfret-medium",
+              "name": "Silver Pomfret (Medium)",
+              "price": 850,
+              "currency": "৳",
+              "unit": "kg",
+              "stock": 500,
+              "image": "photo-1500673922987-e212871fec22"
+            }
+          ]
+        },
+        {
+          "id": "shell-fish",
+          "name": "Shell Fish",
+          "items": [
+            {
+              "id": "digha-lobster",
+              "name": "Digha Lobster",
+              "price": 1800,
+              "currency": "৳",
+              "unit": "kg",
+              "stock": 149,
+              "image": "photo-1535268647677-300dbf3d78d1"
+            },
+            {
+              "id": "golda-chingri-large",
+              "name": "Golda Chingri (Large)",
+              "price": 1200,
+              "currency": "৳",
+              "unit": "kg",
+              "stock": 200,
+              "image": "photo-1535268647677-300dbf3d78d1"
+            },
+            {
+              "id": "bagda-chingri-large",
+              "name": "Bagda Chingri (Large)",
+              "price": 950,
+              "currency": "৳",
+              "unit": "kg",
+              "stock": 200,
+              "image": "photo-1535268647677-300dbf3d78d1"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
