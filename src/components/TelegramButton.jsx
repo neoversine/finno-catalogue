@@ -84,7 +84,7 @@ const TelegramButton = ({ address, selectedItems, totalItems }) => {
     };
 
     return (
-        <div className="fixed bottom-0 left-0 right-0 bg-white/80 backdrop-blur-lg border-t border-border/50 p-4 z-50">
+        <div className="fixed bottom-0 left-0 right-0 bg-white/80 backdrop-blur-lg border-t border-border/50 p-4 z-40">
             <div className="max-w-7xl mx-auto">
                 {/* Selection Summary */}
                 <div className="mb-1 text-center">
