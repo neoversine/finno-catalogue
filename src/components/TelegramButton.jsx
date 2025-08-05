@@ -56,7 +56,7 @@ const TelegramButton = ({ address, selectedItems, totalItems, setSelectedItems }
 
             console.log(webhookData);
 
-            const response = await fetch("https://n8n.finnofarms.in/webhook-test/4b09e954-9fa8-4639-a035-af152d6ba34e", {
+            const response = await fetch("https://n8n.finnofarms.in/webhook/4b09e954-9fa8-4639-a035-af152d6ba34e", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
