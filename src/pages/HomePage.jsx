@@ -134,6 +134,7 @@ const HomePage = ({ address }) => {
                 selectedItems={selectedItemsData}
                 totalItems={totalItems}
                 address={address}
+                setSelectedItems={setSelectedItems}
             />
         </div>
     );

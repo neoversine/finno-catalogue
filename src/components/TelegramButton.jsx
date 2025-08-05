@@ -1,10 +1,12 @@
 import { useState, useEffect } from "react";
 import { Send, Loader2, ShoppingBag, Phone } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 // import { useToast } from "@/hooks/use-toast";
 
-const TelegramButton = ({ address, selectedItems, totalItems }) => {
+const TelegramButton = ({ address, selectedItems, totalItems, setSelectedItems }) => {
     const [isLoading, setIsLoading] = useState(false);
     const [mobile, setMobile] = useState("");
+    const navigate = useNavigate();
     // eslint-disable-next-line no-unused-vars
     const [showMobileInput, setShowMobileInput] = useState(false);
     // const { toast } = useToast();
@@ -65,6 +67,9 @@ const TelegramButton = ({ address, selectedItems, totalItems }) => {
             if (!response.ok) {
                 throw new Error(`HTTP error! status: ${response.status}`);
             }
+
+            setSelectedItems([]);
+            navigate('/complete-your-payment')
 
             // toast({
             //     title: "Order Submitted Successfully! 📤",

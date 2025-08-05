@@ -4,6 +4,8 @@ import PhoneOverlay from './components/PhoneOverlay';
 import AddressModal from './components/AddressModal';
 import ExcelReader from './components/ExcelReader';
 import { ToastContainer } from 'react-toastify';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import CompleteYourPayment from './pages/CompleteYourPayment';
 
 const App = () => {
 
@@ -37,21 +39,31 @@ const App = () => {
 
 
   return (
-    <div>
-      {
-        (showAddressModal) && <>
-          {/* <PhoneOverlay setIsValidPhNumber={setIsValidPhNumber} isValidPhNumber={isValidPhNumber} phoneNumber={mobileNumber} setPhoneNumber={setMobileNumber} /> */}
-          <AddressModal
-            address={address}
-            setAddress={setAddress}
-            onConfirm={handleConfirm}
-            onClose={() => setShowAddressModal(false)}
-          />
-        </>
-      }
-      <HomePage address={address} />
+    <BrowserRouter>
+      <Routes>
+        <Route path='/' element={
+          <div>
+            {
+              (showAddressModal) && <>
+                {/* <PhoneOverlay setIsValidPhNumber={setIsValidPhNumber} isValidPhNumber={isValidPhNumber} phoneNumber={mobileNumber} setPhoneNumber={setMobileNumber} /> */}
+                <AddressModal
+                  address={address}
+                  setAddress={setAddress}
+                  onConfirm={handleConfirm}
+                  onClose={() => setShowAddressModal(false)}
+                />
+              </>
+            }
+            <HomePage address={address} />
+          </div>
+        } />
+
+        <Route path='/complete-your-payment' element={<CompleteYourPayment />} />
+
+      </Routes>
+
       <ToastContainer />
-    </div>
+    </BrowserRouter>
   )
 }
 
