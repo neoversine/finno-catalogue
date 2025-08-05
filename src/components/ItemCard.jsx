@@ -6,7 +6,7 @@ import { notify } from "../lib/Toaster";
 
 
 const ItemCard = ({ item, selectedItems, setSelectedItems }) => {
-    const area = localStorage.getItem('userAddress');
+    const area = localStorage.getItem('userAddress') || "ne";
     console.log(JSON.parse(area).sector);
     const [selectedCut, setSelectedCut] = useState(null);
     const [totalQuantity, setTotalQuantity] = useState();
