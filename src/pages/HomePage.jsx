@@ -1,6 +1,4 @@
-import { useState, useEffect, useMemo } from "react";
-import catalogData from "../data/catalog.json";
-import SearchHeader from "../components/SearchHeader";
+import { useState, useEffect } from "react";
 import CategorySection from "../components/CategorySection";
 import TelegramButton from "../components/TelegramButton";
 import LoadingSpinner from "../components/LoadingSpinner";
@@ -12,7 +10,6 @@ const sheetName = "Products";
 
 const HomePage = ({ address }) => {
     const [isLoading, setIsLoading] = useState(true);
-    const [searchQuery, setSearchQuery] = useState("");
     const [selectedItems, setSelectedItems] = useState([]);
     const [finnoItems, setFinnoItems] = useState([]);
     const [totalItems, setTotalItems] = useState([]);
@@ -32,9 +29,6 @@ const HomePage = ({ address }) => {
     }, []);
 
 
-    const handleClearSelection = () => {
-        setSelectedItems([]);
-    };
 
     if (isLoading) {
         return <LoadingSpinner />;
