@@ -21,7 +21,7 @@ const ShoppingCartModal = ({ showCart, selectedItems, setSelectedItems }) => {
                         selectedItems?.map((ele, i) => (
                             <div
                                 key={i}
-                                className="flex items-center gap-4 py-3 px-3 md:py-4 md:px-4 bg-white border border-gray-300 rounded-lg font-sans shadow-sm"
+                                className="flex items-center gap-4 py-3 px-3 md:py-4 md:px-4 bg-white border border-gray-300 rounded-lg font-sans"
                             >
                                 {/* Product Image */}
                                 <img
@@ -52,10 +52,10 @@ const ShoppingCartModal = ({ showCart, selectedItems, setSelectedItems }) => {
 
                                     {/* Cut Type + Quantity */}
                                     <div className="mt-1 flex items-center gap-3 text-sm text-gray-600">
-                                        <span className="px-2 py-0.5 rounded-full border border-gray-300 bg-gray-50">
+                                        <span className="px-3 py-1 max-md:text-xs rounded-full border border-gray-300 bg-gray-50">
                                             {ele.selectedCut}
                                         </span>
-                                        <span className="font-medium text-purple-700 whitespace-nowrap">
+                                        <span className="max-md:text-sm font-medium text-gray-500 whitespace-nowrap">
                                             Qty: {ele.totalQuantity}
                                         </span>
                                     </div>
