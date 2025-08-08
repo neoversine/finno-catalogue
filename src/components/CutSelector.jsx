@@ -19,12 +19,12 @@ const CutSelector = ({
             return;
         }
 
-        if (cut !== "Whole") {
+        if (cut !== "Whole" && cut !== "Cleaned" && cut !== "Cut in half") {
             setTempCut(cut); // Temporarily store cut until size is selected
             setShowModal(true);
         } else {
             setSelectedCut(cut);
-            setSelectedCutSize("");
+            setSelectedCutSize("Whole");
         }
     };
 
