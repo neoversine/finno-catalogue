@@ -92,5 +92,6 @@ export default function AddressModal({ address, setAddress, onConfirm }) {
                 </div>
             </div >
         </div >
+
     );
 }

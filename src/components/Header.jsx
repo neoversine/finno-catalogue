@@ -7,7 +7,7 @@ const Header = ({ selectedItems, setSelectedItems }) => {
     const [showCart, setShowCart] = useState(false);
 
     return (
-        <div className='fixed top-0 z-[10] w-full py-2 px-3 md:px-5 backdrop-blur-md bg-white shadow'>
+        <div className='sticky top-0 z-[10] w-full py-2 px-3 md:px-5 backdrop-blur-md bg-white shadow'>
             {/* Main Header */}
             <div className="relative max-w-5xl mx-auto ">
                 <div className="md:text-center mb-2">

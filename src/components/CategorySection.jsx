@@ -19,14 +19,14 @@ const CategorySection = ({ category, selectedItems, setSelectedItems, onToggleSe
 
 
     return (
-        <section className="mb-8 fade-in">
+        <section className="mb-8 mt-2 fade-in">
             {/* Category Header */}
             <div className="mb-2">
                 <div className="flex items-center gap-3 mb-2">
                     <span className="text-2xl">{category.icon}</span>
-                    <h2 className="text-2xl font-bold text-gradient">{category.name}</h2>
+                    <h2 className="text-2xl font-bold text-gray-800">{category.name}</h2>
                 </div>
-                <div className="h-1 bg-gradient-warm rounded-full w-20"></div>
+                <div className="h-1 bg-gradient-warm rounded-full w-24"></div>
             </div>
 
             {/* Subcategories */}
