@@ -15,7 +15,7 @@ const ShoppingCartModal = ({ showCart, selectedItems, setSelectedItems }) => {
     return (
 
         <div className={`absolute z-[0] top-20 right-1/2 max-md:translate-x-1/2 md:-right-3 w-full md:w-1/2  bg-gray-50 shadow-xl rounded-xl border border-orange-500/60 ${showCart ? 'block' : 'hidden'}`}>
-            <div className='flex flex-col gap-2 max-h-[50vh] w-full p-3 overflow-auto'>
+            <div className='flex flex-col gap-1 md:gap-2 max-h-[50vh] w-full p-2 md:p-3 overflow-auto'>
                 {
                     selectedItems.length == 0 ? "No items selected" :
                         selectedItems?.map((ele, i) => (
