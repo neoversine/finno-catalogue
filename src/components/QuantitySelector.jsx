@@ -43,11 +43,11 @@ const QuantitySelector = ({
     const totalVal = parseFloat((quantity * baseValue).toFixed(2));
 
     return (
-        <div className="flex items-center gap-2 w-full font-sans font-medium">
+        <div className="flex items-center gap-1 md:gap-2 w-full font-sans font-medium">
             {/* Decrement Button */}
             <button
                 onClick={decrement}
-                className="w-8 h-8 flex items-center justify-center rounded-lg border border-gray-300 text-lg text-gray-700 hover:bg-gray-100 hover:text-red-600 active:text-red-600 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                className="w-6 md:w-8 h-6 md:h-8 flex items-center justify-center rounded-lg border border-gray-300 text-lg text-gray-700 hover:bg-gray-100 hover:text-red-600 active:text-red-600 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
                 disabled={isAlreadySelected}
             >
                 −
@@ -62,7 +62,7 @@ const QuantitySelector = ({
             {/* Increment Button */}
             <button
                 onClick={increment}
-                className="w-8 h-8 flex items-center justify-center rounded-lg border border-gray-300 text-lg text-gray-700 hover:bg-gray-100 hover:text-green-600 active:text-green-600 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                className="w-6 h-6 md:w-8 md:h-8 flex items-center justify-center rounded-lg border border-gray-300 text-lg text-gray-700 hover:bg-gray-100 hover:text-green-600 active:text-green-600 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
                 disabled={isAlreadySelected}
             >
                 +

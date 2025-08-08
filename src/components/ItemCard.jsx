@@ -90,7 +90,7 @@ const ItemCard = ({ item, selectedItems, setSelectedItems }) => {
 
     return (
         <div
-            className={`bg-white border border-[#e8e2d9] rounded-2xl shadow-[0_2px_12px_-2px_hsl(25,25%,35%,0.08)] transition-all duration-300 ease-out hover:shadow-[0_8px_30px_-8px_hsl(15,85%,65%,0.25)] p-4 ${isAlreadySelected ? "border-2 border-[#f2805a]" : ""
+            className={`bg-white border border-[#e8e2d9] rounded-2xl shadow-[0_2px_12px_-2px_hsl(25,25%,35%,0.08)] transition-all duration-300 ease-out hover:shadow-[0_8px_30px_-8px_hsl(15,85%,65%,0.25)] p-2 md:p-4 ${isAlreadySelected ? "border-2 border-[#f2805a]" : ""
                 } fade-in`}
         >
             {/* Product Image Section */}
