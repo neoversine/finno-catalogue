@@ -5,6 +5,7 @@ import CategorySection from "../components/CategorySection";
 import TelegramButton from "../components/TelegramButton";
 import LoadingSpinner from "../components/LoadingSpinner";
 import { transformSheetData } from "../lib/SheetRuleEngine";
+import Header from "../components/Header";
 
 const sheetId = "1tuRA0qbkS5d5A3osrRhnHzL1zKuqgkkzmNK06OecY4s";
 const sheetName = "Products";
@@ -14,6 +15,7 @@ const HomePage = ({ address }) => {
     const [searchQuery, setSearchQuery] = useState("");
     const [selectedItems, setSelectedItems] = useState([]);
     const [finnoItems, setFinnoItems] = useState([]);
+    const [totalItems, setTotalItems] = useState([]);
 
     // Simulate loading
     useEffect(() => {
@@ -23,62 +25,12 @@ const HomePage = ({ address }) => {
             .then((res) => res.json())
             .then((data) => {
                 console.log(data);
+                setTotalItems(data.length);
                 setFinnoItems(transformSheetData(data));
-                console.log(transformSheetData(data));
                 setIsLoading(false);
             });
-
-
     }, []);
 
-    // Get all items for search and selection
-    // eslint-disable-next-line no-unused-vars
-    const { allItems, filteredCategories, totalItems } = useMemo(() => {
-        const categories = catalogData.categories;
-        const items = [];
-
-        categories.forEach(category => {
-            category.subcategories.forEach(subcategory => {
-                items.push(...subcategory.items);
-            });
-        });
-
-        const filtered = searchQuery
-            ? categories
-                .map(category => ({
-                    ...category,
-                    subcategories: category.subcategories
-                        .map(subcategory => ({
-                            ...subcategory,
-                            items: subcategory.items.filter(item =>
-                                item.name.toLowerCase().includes(searchQuery.toLowerCase())
-                            )
-                        }))
-                        .filter(subcategory => subcategory.items.length > 0)
-                }))
-                .filter(category => category.subcategories.length > 0)
-            : categories;
-
-        return {
-            allItems: items,
-            filteredCategories: filtered,
-            totalItems: items.length
-        };
-    }, [searchQuery]);
-
-    const selectedItemsData = selectedItems;
-
-    // Toggle item selection based on full item object
-    const handleToggleSelect = (itemInfo) => {
-        setSelectedItems((prev) => {
-            const exists = prev.some((item) => item.itemId === itemInfo.itemId);
-            if (exists) {
-                return prev.filter((item) => item.itemId !== itemInfo.itemId);
-            } else {
-                return [...prev, itemInfo];
-            }
-        });
-    };
 
     const handleClearSelection = () => {
         setSelectedItems([]);
@@ -90,16 +42,17 @@ const HomePage = ({ address }) => {
 
     return (
         <div className="min-h-screen bg-gradient-soft">
-            <div className="max-w-4xl mx-auto px-4 py-6 pb-32">
-                <SearchHeader
+            <Header selectedItems={selectedItems} setSelectedItems={setSelectedItems} />
+            <div className="max-w-5xl mx-auto max-xl:px-4 pb-32">
+                {/* <SearchHeader
                     searchQuery={searchQuery}
                     onSearchChange={setSearchQuery}
                     selectedCount={selectedItems.length}
                     onClearSelection={handleClearSelection}
-                />
+                /> */}
 
                 {/* Main Content */}
-                <main className="mt-6">
+                <main className="">
                     {finnoItems.length > 0 ? (
                         finnoItems.map((category, index) => (
                             <div
@@ -110,7 +63,6 @@ const HomePage = ({ address }) => {
                                 <CategorySection
                                     category={category}
                                     selectedItems={selectedItems}
-                                    onToggleSelect={handleToggleSelect}
                                     setSelectedItems={setSelectedItems}
                                 />
                             </div>
@@ -131,7 +83,7 @@ const HomePage = ({ address }) => {
 
             {/* Sticky Telegram Button */}
             <TelegramButton
-                selectedItems={selectedItemsData}
+                selectedItems={selectedItems}
                 totalItems={totalItems}
                 address={address}
                 setSelectedItems={setSelectedItems}

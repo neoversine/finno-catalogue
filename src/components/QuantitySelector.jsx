@@ -43,25 +43,32 @@ const QuantitySelector = ({
     const totalVal = parseFloat((quantity * baseValue).toFixed(2));
 
     return (
-        <div className="flex items-center gap-3 w-full font-medium">
+        <div className="flex items-center gap-2 w-full font-sans font-medium">
+            {/* Decrement Button */}
             <button
                 onClick={decrement}
-                className="text-black"
+                className="w-8 h-8 flex items-center justify-center rounded-lg border border-gray-300 text-lg text-gray-700 hover:bg-gray-100 hover:text-red-600 active:text-red-600 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
                 disabled={isAlreadySelected}
             >
                 −
             </button>
-            <span className="flex justify-center grow py-1 bg-gray-400/20 border border-gray-500/50 rounded-lg text-sm">
-                {`${totalVal % 1 === 0 ? totalVal : totalVal.toFixed(2)} ${unit}${quantity > 1 ? "s" : ""}`}
+
+            {/* Quantity Display */}
+            <span className="flex justify-center grow py-1 bg-gray-50 border border-gray-300 rounded-lg text-sm text-gray-800">
+                {`${totalVal % 1 === 0 ? totalVal : totalVal.toFixed(2)} ${unit}${quantity > 1 ? "s" : ""
+                    }`}
             </span>
+
+            {/* Increment Button */}
             <button
                 onClick={increment}
-                className="text-black"
+                className="w-8 h-8 flex items-center justify-center rounded-lg border border-gray-300 text-lg text-gray-700 hover:bg-gray-100 hover:text-green-600 active:text-green-600 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
                 disabled={isAlreadySelected}
             >
                 +
             </button>
         </div>
+
     );
 };
 

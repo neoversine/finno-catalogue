@@ -1,11 +1,15 @@
 import { useState, useEffect } from "react";
 import { Send, Loader2, ShoppingBag, Phone } from "lucide-react";
 import { useNavigate } from "react-router-dom";
+import Switch from "./Switch";
+import OrderButton from "./OrderButton";
+import { notify } from "../lib/Toaster";
 // import { useToast } from "@/hooks/use-toast";
 
 const TelegramButton = ({ address, selectedItems, totalItems, setSelectedItems }) => {
     const [isLoading, setIsLoading] = useState(false);
     const [mobile, setMobile] = useState("");
+    const [cashOnDelivery, setCashOnDelivery] = useState(false);
     const navigate = useNavigate();
     // eslint-disable-next-line no-unused-vars
     const [showMobileInput, setShowMobileInput] = useState(false);
@@ -24,6 +28,7 @@ const TelegramButton = ({ address, selectedItems, totalItems, setSelectedItems }
             price: item.price,
             unit: item.unit,
             selectedCut: item.selectedCut,
+            selectedCutSize: item.selectedCutSize,
             selectedQuantity: item.selectedQuantity,
             totalPrice: item.totalPrice,
             totalQuantity: item.totalQuantity,
@@ -33,13 +38,11 @@ const TelegramButton = ({ address, selectedItems, totalItems, setSelectedItems }
 
     const handleSubmitOrder = async () => {
         console.log(selectedItems)
-        if (!mobile.trim()) {
+        const isValidMobile = /^[6-9]\d{9}$/.test(mobile.trim());
+
+        if (!isValidMobile) {
             setShowMobileInput(true);
-            alert({
-                title: "Mobile Number Required",
-                description: "Please enter your mobile number to submit your order",
-                variant: "destructive",
-            });
+            notify("Please enter a valid mobile number!", "warning");
             return;
         }
 
@@ -49,6 +52,7 @@ const TelegramButton = ({ address, selectedItems, totalItems, setSelectedItems }
             localStorage.setItem("userMobile", mobile);
 
             const webhookData = {
+                cashOnDelivery: cashOnDelivery,
                 address: address,
                 mobile: mobile.trim(),
                 items: formatItemsForWebhook()
@@ -56,7 +60,7 @@ const TelegramButton = ({ address, selectedItems, totalItems, setSelectedItems }
 
             console.log(webhookData);
 
-            const response = await fetch("https://n8n.finnofarms.in/webhook-test/4b09e954-9fa8-4639-a035-af152d6ba34e", {
+            const response = await fetch("https://n8n.finnofarms.in/webhook/4b09e954-9fa8-4639-a035-af152d6ba34e", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
@@ -89,29 +93,23 @@ const TelegramButton = ({ address, selectedItems, totalItems, setSelectedItems }
     };
 
     return (
-        <div className="fixed bottom-0 left-0 right-0 bg-white/80 backdrop-blur-lg border-t border-border/50 p-4 z-40">
-            <div className="max-w-7xl mx-auto">
-                {/* Selection Summary */}
-                <div className="mb-1 text-center">
-                    <p className="text-sm text-muted-foreground">
-                        {selectedItems.length > 0 ? (
-                            <>
-                                <ShoppingBag className="w-4 h-4 inline mr-1" />
-                                {selectedItems.length} of {totalItems} items selected
-                            </>
-                        ) : (
-                            `Browse ${totalItems} available items`
-                        )}
-                    </p>
-                </div>
+        <div className="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 p-4 z-40 shadow-lg">
+            <div className="max-w-6xl mx-auto">
+                <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-4">
 
-                <div className="flex items-center gap-3 max-w-md mx-auto">
-                    {/* Mobile Number Input */}
-                    {(
-                        <div className="w-1/2 mb-4 space-y-2">
-                            <label htmlFor="mobile" className="text-sm font-medium">
-                                <Phone className="w-4 h-4 inline mr-1" />
-                                Mobile Number
+                    {/* Contact & Payment Section */}
+                    <div className="flex flex-row items-center md:items-end gap-6">
+
+                        {/* Mobile Number Input */}
+                        <div>
+                            <label
+                                htmlFor="mobile"
+                                className="block text-sm font-medium text-gray-700 mb-1"
+                            >
+                                <div className="flex items-center gap-1">
+                                    <Phone className="w-4 h-4 text-gray-500" />
+                                    <span>Mobile Number</span>
+                                </div>
                             </label>
                             <input
                                 id="mobile"
@@ -119,40 +117,39 @@ const TelegramButton = ({ address, selectedItems, totalItems, setSelectedItems }
                                 placeholder="Enter your mobile number"
                                 value={mobile}
                                 onChange={(e) => setMobile(e.target.value)}
-                                className="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                className="w-52 md:w-64 rounded-md border border-gray-300 px-3 py-2 text-sm focus:border-orange-500 focus:ring-2 focus:ring-orange-200 outline-none transition"
                             />
                         </div>
-                    )}
+
+                        {/* Cash on Delivery Toggle */}
+                        <div className="flex items-center gap-2">
+                            <span className="text-sm font-medium text-gray-700">Cash on Delivery</span>
+                            <Switch
+                                checked={cashOnDelivery}
+                                onChange={(e) => setCashOnDelivery(e.target.checked)}
+                            />
+                        </div>
+                    </div>
 
                     {/* Submit Button */}
-                    <button
-                        onClick={handleSubmitOrder}
-                        disabled={isLoading}
-                        className="w-1/2 text-base py-2  h-fit mx-auto shadow-lg bg-blue-600 text-white rounded hover:bg-blue-700 disabled:opacity-50 flex justify-center items-center"
-                    >
-                        {isLoading ? (
-                            <>
-                                <Loader2 className="w-5 h-5 mr-2 animate-spin" />
-                                Submitting your order...
-                            </>
-                        ) : (
-                            <>
-                                <Send className="w-5 h-5 mr-2" />
-                                Submit Your Order
-                            </>
-                        )}
-                    </button>
-
+                    <div className="flex justify-end">
+                        <button
+                            onClick={handleSubmitOrder}
+                            disabled={isLoading}
+                            className="flex items-center justify-center bg-white text-white text-sm font-semibold rounded-lg shadow transition disabled:opacity-50"
+                        >
+                            {isLoading ? <OrderButton type="Loading" /> : <OrderButton />}
+                        </button>
+                    </div>
                 </div>
 
-                <p className="text-xs text-center text-muted-foreground mt-2">
-                    {selectedItems.length > 0
-                        ? "We'll reach out on WhatsApp after reviewing your selection."
-                        : "Select items from the catalog to place your order"
-                    }
+                {/* Footer Helper Text */}
+                <p className="text-xs text-center text-gray-500 mt-3">
+                    Select items from the catalog and place your order
                 </p>
             </div>
         </div>
+
     );
 };
 

@@ -2,6 +2,7 @@ import { useRef, useState } from "react";
 import { Heart, ShoppingCart, Package } from "lucide-react";
 import QuantitySelector from "./QuantitySelector";
 import { notify } from "../lib/Toaster";
+import CutSelector from "./CutSelector";
 
 
 
@@ -9,11 +10,9 @@ const ItemCard = ({ item, selectedItems, setSelectedItems }) => {
     const area = JSON.parse(localStorage.getItem('userAddress')).sector || 'ss';
     const [selectedCut, setSelectedCut] = useState(null);
     const [totalQuantity, setTotalQuantity] = useState();
-    const [isLiked, setIsLiked] = useState(false);
     const [imageLoaded, setImageLoaded] = useState(false);
-
-
     const [quantity, setQuantity] = useState();
+    const [selectedCutSize, setSelectedCutSize] = useState("");
 
     const toastShownRef = useRef(false);
 
@@ -60,6 +59,7 @@ const ItemCard = ({ item, selectedItems, setSelectedItems }) => {
             totalQuantity: totalQuantity,
             selectedQuantity: quantity,
             selectedCut,
+            selectedCutSize
         };
 
         console.log(itemInfo);
@@ -90,9 +90,10 @@ const ItemCard = ({ item, selectedItems, setSelectedItems }) => {
 
     return (
         <div
-            className={`bg-white border border-[#e8e2d9] rounded-2xl shadow-[0_2px_12px_-2px_hsl(25,25%,35%,0.08)] transition-all duration-300 ease-out hover:shadow-[0_8px_30px_-8px_hsl(15,85%,65%,0.25)] p-4 ${isAlreadySelected ? "border-2 border-[#f2805a] " : ""} fade-in`}
+            className={`bg-white border border-[#e8e2d9] rounded-2xl shadow-[0_2px_12px_-2px_hsl(25,25%,35%,0.08)] transition-all duration-300 ease-out hover:shadow-[0_8px_30px_-8px_hsl(15,85%,65%,0.25)] p-4 ${isAlreadySelected ? "border-2 border-[#f2805a]" : ""
+                } fade-in`}
         >
-            {/* Image */}
+            {/* Product Image Section */}
             <div className="relative mb-3 rounded-xl overflow-hidden bg-[--muted]">
                 <div className="aspect-square relative">
                     {!imageLoaded && (
@@ -109,72 +110,71 @@ const ItemCard = ({ item, selectedItems, setSelectedItems }) => {
                         loading="lazy"
                     />
 
-                    {/* Like button */}
-                    <button
-                        onClick={() => setIsLiked(!isLiked)}
-                        className="absolute top-2 right-2 w-8 h-8 rounded-full bg-white/80 backdrop-blur-sm flex items-center justify-center transition-all duration-200 hover:bg-white hover:scale-110"
-                    >
-                        <Heart
-                            className={`w-4 h-4 transition-colors duration-200 ${isLiked
-                                ? "fill-red-500 text-red-500"
-                                : "text-[--muted-foreground]"
-                                }`}
-                        />
-                    </button>
-
                     {/* Stock Badge */}
                     <div className="absolute bottom-2 left-2">{getStockBadge()}</div>
                 </div>
             </div>
 
-            {/* Text content */}
+            {/* Product Details */}
             <div className="space-y-2">
+                {/* Product Name */}
                 <h3 className="font-semibold text-sm text-[--foreground] leading-snug line-clamp-2">
                     {item.name}
                 </h3>
 
+                {/* Price Row */}
                 <div className="flex items-center justify-between">
-                    <div className="flex items-center gap-[2px]">
+                    <div className="flex items-end gap-[2px]">
                         <span className="text-xl font-bold text-[--primary]">
                             {item.currency}
                             {priceAccordingToArea}
                         </span>
-                        <span className="text-[10px] text-[--muted-foreground]">
+                        <span className="mb-1 text-[10px] text-[--muted-foreground] leading-none">
                             /{quantityAccordingToArea}
                         </span>
                     </div>
-                </div>
 
-                {/* Cut Select Action */}
-                <div className="grid grid-cols-2 gap-1 text-[10px] text-[--muted-foreground]">
-                    {cuts?.map((cut, i) => (
-                        <button
-                            key={i}
-                            onClick={() => {
-                                if (isAlreadySelected) {
-                                    notify("Deselect the item!", "warning");
-                                    return;
-                                }
-                                setSelectedCut(cut);
-                            }}
-                            className={`text-center border py-[4px] px-[2px] rounded-full transition-all ${selectedCut === cut
-                                ? "bg-[#f2805a] text-white border-[#f2805a]"
-                                : "hover:bg-muted"
+                    {/* Cut Size Badge */}
+                    {selectedCutSize && (
+                        <span
+                            className={`px-2 py-1 rounded-full text-xs font-bold uppercase tracking-wide ${selectedCutSize[0]?.toLowerCase() === "s"
+                                ? "bg-cyan-100 text-cyan-700"
+                                : selectedCutSize[0]?.toLowerCase() === "m"
+                                    ? "bg-pink-100 text-pink-700"
+                                    : selectedCutSize[0]?.toLowerCase() === "l"
+                                        ? "bg-green-100 text-green-700"
+                                        : "bg-sky-100 text-sky-700"
                                 }`}
                         >
-                            {cut}
-                        </button>
-                    ))}
+                            {selectedCutSize[0] || "W"}
+                        </span>
+
+                    )}
                 </div>
 
+                {/* Cut Selector */}
+                <CutSelector
+                    cuts={cuts}
+                    selectedCut={selectedCut}
+                    setSelectedCut={setSelectedCut}
+                    selectedCutSize={selectedCutSize}
+                    setSelectedCutSize={setSelectedCutSize}
+                    availableCutSizes={item.sizesOfCutsAvailable}
+                    isAlreadySelected={isAlreadySelected}
+                    notify={notify}
+                />
+
+                {/* Quantity Selector */}
                 <QuantitySelector
-                    totalQuanitity={totalQuantity} setTotalQuantity={setTotalQuantity}
-                    quantity={quantity} setQuantity={setQuantity}
+                    totalQuanitity={totalQuantity}
+                    setTotalQuantity={setTotalQuantity}
+                    quantity={quantity}
+                    setQuantity={setQuantity}
                     isAlreadySelected={isAlreadySelected}
                     min={item.minQuantityToBuy}
                 />
 
-                {/* Action Button */}
+                {/* Select Action */}
                 <div className="flex gap-2 pt-2">
                     <button
                         className={`flex-1 text-xs px-3 py-2 rounded-xl border flex items-center justify-center gap-1 transition-all duration-200 ${isAlreadySelected
@@ -184,7 +184,6 @@ const ItemCard = ({ item, selectedItems, setSelectedItems }) => {
                                 ? "opacity-50 cursor-not-allowed"
                                 : ""
                             }`}
-
                         onClick={() => {
                             if (!selectedCut) {
                                 notify("Please select a cut before proceeding!", "warning");

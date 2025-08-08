@@ -27,7 +27,12 @@ export function transformSheetData(data) {
         const price = (item["Price"]) || 0;
         const unit = item["unit"] || "kg";
         const stock = parseInt(item["Stock"]) || 0;
-        const typesOfCut = item["Types Of Cut Available"] || 'Whole'
+        const typesOfCut = item["Types Of Cut Available"] || 'Whole';
+        const sizesOfCutsAvailable = (item["Sizes of Cut Available"] || "")
+            .split(",")
+            .map(size => size.trim())
+            .filter(size => size !== "")
+            ;
         const MinQuantityToBuy = item["Min Quantity to Buy"] || '1 piece'
         const image = item["Images"] || defaultImageMap[subcategoryName] || "photo-1465146344425-f00673922987";
         const available = item["Available"]
@@ -67,7 +72,8 @@ export function transformSheetData(data) {
             image: image,
             available: available,
             minQuantityToBuy: MinQuantityToBuy,
-            typesOfCut: typesOfCut
+            typesOfCut: typesOfCut,
+            sizesOfCutsAvailable: sizesOfCutsAvailable
         });
     }
 

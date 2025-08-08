@@ -21,7 +21,7 @@ const CategorySection = ({ category, selectedItems, setSelectedItems, onToggleSe
     return (
         <section className="mb-8 fade-in">
             {/* Category Header */}
-            <div className="mb-6">
+            <div className="mb-2">
                 <div className="flex items-center gap-3 mb-2">
                     <span className="text-2xl">{category.icon}</span>
                     <h2 className="text-2xl font-bold text-gradient">{category.name}</h2>
@@ -37,7 +37,7 @@ const CategorySection = ({ category, selectedItems, setSelectedItems, onToggleSe
                     return (
                         <div
                             key={subcategory.id}
-                            className="catalog-surface md:p-4 slide-up"
+                            className="catalog-surface md:py-4 slide-up"
                             style={{ animationDelay: `${index * 0.1}s` }}
                         >
                             {/* Subcategory Header */}
@@ -62,7 +62,7 @@ const CategorySection = ({ category, selectedItems, setSelectedItems, onToggleSe
 
                             {/* Items Grid */}
                             {isExpanded && (
-                                <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
+                                <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4">
                                     {subcategory.items.map((item, itemIndex) => (
                                         <div
                                             key={item.id}
