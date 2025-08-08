@@ -4,7 +4,6 @@ const CutSelector = ({
     cuts = [],
     selectedCut,
     setSelectedCut,
-    selectedCutSize,
     setSelectedCutSize,
     availableCutSizes,
     isAlreadySelected,

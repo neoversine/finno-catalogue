@@ -6,7 +6,7 @@ import OrderButton from "./OrderButton";
 import { notify } from "../lib/Toaster";
 // import { useToast } from "@/hooks/use-toast";
 
-const TelegramButton = ({ address, selectedItems, totalItems, setSelectedItems }) => {
+const TelegramButton = ({ address, selectedItems, setSelectedItems }) => {
     const [isLoading, setIsLoading] = useState(false);
     const [mobile, setMobile] = useState("");
     const [cashOnDelivery, setCashOnDelivery] = useState(false);
