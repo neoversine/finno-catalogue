@@ -9,7 +9,6 @@ const CutSelector = ({
     isAlreadySelected,
     notify
 }) => {
-    console.log(availableCutSizes)
     const [showModal, setShowModal] = useState(false);
     const [tempCut, setTempCut] = useState(null);
 

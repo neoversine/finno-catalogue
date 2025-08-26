@@ -39,7 +39,7 @@ const CategorySection = ({ category, selectedItems, setSelectedItems, onToggleSe
                     return (
                         <div
                             key={subcategory.id}
-                            className="rounded-xl border border-lime-200 bg-white/80 shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden"
+                            className="rounded-xl md:border md:border-lime-200 bg-white/80 md:shadow-lg md:hover:shadow-xl transition-all duration-300 overflow-hidden"
                             style={{ animationDelay: `${index * 0.1}s` }}
                         >
                             {/* Subcategory Header */}
@@ -65,7 +65,7 @@ const CategorySection = ({ category, selectedItems, setSelectedItems, onToggleSe
                             {/* Items Grid */}
                             <div
                                 className={`grid transition-all duration-500 ease-in-out ${isExpanded
-                                    ? "grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4 px-4 pb-5 md:px-6"
+                                    ? "grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4 md:px-4 pb-5 md:px-6"
                                     : "grid-rows-0 h-0 overflow-hidden"
                                     }`}
                             >

@@ -133,13 +133,13 @@ const TelegramButton = ({ address, selectedItems, setSelectedItems }) => {
 
                     {/* Submit Button */}
                     <div className="flex justify-end">
-                        <button
+                        <div
                             onClick={handleSubmitOrder}
                             disabled={isLoading}
                             className="flex items-center justify-center bg-white text-white text-sm font-semibold rounded-lg shadow transition disabled:opacity-50"
                         >
                             {isLoading ? <OrderButton type="Loading" /> : <OrderButton />}
-                        </button>
+                        </div>
                     </div>
                 </div>
 

@@ -11,6 +11,7 @@ export default function UserProvider({ children }) {
     const [loading, setLoading] = useState(true);
     const [isLoggedIn, setIsLoggedIn] = useState(false);
     const [showAddressModal, setShowAddressModal] = useState(false);
+    const [sector, setSector] = useState("");
 
     const fetchProfile = async () => {
         const token = Cookies.get("accessToken");

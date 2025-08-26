@@ -1,13 +1,11 @@
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Heart, ShoppingCart, Package } from "lucide-react";
 import QuantitySelector from "./QuantitySelector";
 import { notify } from "../../lib/Toaster";
 import CutSelector from "./CutSelector";
+import { useUserContext } from "../../context/UserContext";
 
-
-
-const ItemCard = ({ item, selectedItems, setSelectedItems }) => {
-    const area = JSON.parse(localStorage.getItem('userAddress')).sector || 'ss';
+const ItemCard = ({ item, selectedItems, setSelectedItems, sector }) => {
     const [selectedCut, setSelectedCut] = useState(null);
     const [totalQuantity, setTotalQuantity] = useState();
     const [imageLoaded, setImageLoaded] = useState(false);
@@ -15,6 +13,8 @@ const ItemCard = ({ item, selectedItems, setSelectedItems }) => {
     const [selectedCutSize, setSelectedCutSize] = useState("");
 
     const toastShownRef = useRef(false);
+
+    const area = 'South Kolkata';
 
     const priceSplit = String(item.price).split(",");
     const selectedAreaIndex =
