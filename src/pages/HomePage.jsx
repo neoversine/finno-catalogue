@@ -1,50 +1,22 @@
-import { useState, useEffect } from "react";
-import CategorySection from "../components/CategorySection";
+import { useState } from "react";
+import CategorySection from "../components/catalogue/CategorySection";
 import TelegramButton from "../components/TelegramButton";
 import LoadingSpinner from "../components/LoadingSpinner";
-import { transformSheetData } from "../lib/SheetRuleEngine";
-import Header from "../components/Header";
-
-const sheetId = "1tuRA0qbkS5d5A3osrRhnHzL1zKuqgkkzmNK06OecY4s";
-const sheetName = "Products";
+import Header from "../components/basic/Header";
+import { useProductsContext } from "../context/ProductContext";
 
 const HomePage = ({ address }) => {
-    const [isLoading, setIsLoading] = useState(true);
     const [selectedItems, setSelectedItems] = useState([]);
-    const [finnoItems, setFinnoItems] = useState([]);
-    const [totalItems, setTotalItems] = useState([]);
-
-    // Simulate loading
-    useEffect(() => {
-        fetch(
-            `https://opensheet.elk.sh/${sheetId}/${sheetName}`
-        )
-            .then((res) => res.json())
-            .then((data) => {
-                console.log(data);
-                setTotalItems(data.length);
-                setFinnoItems(transformSheetData(data));
-                setIsLoading(false);
-            });
-    }, []);
-
-
+    const { finnoItems, totalItems, isLoading } = useProductsContext();
 
     if (isLoading) {
         return <LoadingSpinner />;
     }
 
     return (
-        <div className="min-h-screen bg-gradient-soft">
+        <div className="min-h-screen">
             <Header selectedItems={selectedItems} setSelectedItems={setSelectedItems} />
-            <div className="max-w-5xl mx-auto max-xl:px-4 pb-32">
-                {/* <SearchHeader
-                    searchQuery={searchQuery}
-                    onSearchChange={setSearchQuery}
-                    selectedCount={selectedItems.length}
-                    onClearSelection={handleClearSelection}
-                /> */}
-
+            <div className="max-w-6xl mx-auto max-xl:px-4 pb-32">
                 {/* Main Content */}
                 <main className="">
                     {finnoItems.length > 0 ? (

@@ -38,14 +38,15 @@ const CutSelector = ({
     return (
         <div className="relative font-sans">
             {/* Cut Options Grid */}
-            <div className="grid grid-cols-2 gap-1 text-[10px] text-gray-500">
+            <div className="grid grid-cols-2 gap-2 text-xs">
                 {cuts.map((cut, i) => (
                     <button
                         key={i}
                         onClick={() => handleCutClick(cut)}
-                        className={`text-center border rounded-full py-[4px] px-[2px] transition-all duration-200 ${selectedCut === cut
-                            ? "bg-[#f2805a] text-white border-[#f2805a]"
-                            : "hover:bg-gray-100 border-gray-300 text-gray-700"
+                        className={`text-center border rounded-full py-1.5 px-2 transition-all duration-200 shadow-sm 
+          ${selectedCut === cut
+                                ? "bg-gradient-to-r from-green-500 to-green-400 text-white border-transparent scale-105"
+                                : "bg-white border-gray-300 text-gray-700 hover:border-cyan-400 hover:text-cyan-600 hover:shadow-md"
                             }`}
                     >
                         {cut}
@@ -56,9 +57,9 @@ const CutSelector = ({
             {/* Modal for Cut Size */}
             {showModal && (
                 <div className="absolute inset-0 z-40 flex items-center justify-center bg-black/50">
-                    <div className="bg-white p-4 rounded-lg shadow-lg w-[200px] text-sm">
+                    <div className="bg-white p-5 rounded-2xl shadow-xl w-[220px] text-sm animate-fade-in">
                         {/* Modal Title */}
-                        <p className="mb-3 font-semibold text-center text-gray-800">
+                        <p className="mb-4 font-semibold text-center text-gray-800">
                             Select Cut Size
                         </p>
 
@@ -68,7 +69,9 @@ const CutSelector = ({
                                 <button
                                     key={size}
                                     onClick={() => handleSizeSelect(size)}
-                                    className="text-xs border border-gray-300 px-3 py-1 rounded-full hover:bg-gray-100 transition-colors duration-200 text-gray-700"
+                                    className="text-xs border px-3 py-1.5 rounded-full transition-all duration-200 shadow-sm 
+                         bg-white border-gray-300 text-gray-700 
+                         hover:border-lime-400 hover:text-lime-600 hover:shadow-md"
                                 >
                                     {size}
                                 </button>
@@ -78,6 +81,7 @@ const CutSelector = ({
                 </div>
             )}
         </div>
+
 
     );
 };

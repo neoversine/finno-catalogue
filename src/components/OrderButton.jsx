@@ -5,7 +5,7 @@ import TruckLoader from './TruckLoader'
 const OrderButton = ({ type }) => {
     return (
         <button className="pay-btn">
-            <div className="btn-text">
+            <div className="btn-text max-md:text-xs">
                 {
                     type == 'Loading' ?
                         "Loading..."

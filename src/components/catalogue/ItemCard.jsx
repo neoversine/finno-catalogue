@@ -1,7 +1,7 @@
 import { useRef, useState } from "react";
 import { Heart, ShoppingCart, Package } from "lucide-react";
 import QuantitySelector from "./QuantitySelector";
-import { notify } from "../lib/Toaster";
+import { notify } from "../../lib/Toaster";
 import CutSelector from "./CutSelector";
 
 
@@ -32,11 +32,26 @@ const ItemCard = ({ item, selectedItems, setSelectedItems }) => {
         const status = getStockStatus();
         switch (status) {
             case "out-of-stock":
-                return <span className="catalog-badge-danger">Out of Stock</span>;
+                return (
+                    <span className="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold bg-red-100 text-red-700 shadow-sm animate-fade-in">
+                        Out of Stock
+                    </span>
+                );
+
             case "low-stock":
-                return <span className="catalog-badge-warning">Low Stock</span>;
+                return (
+                    <span className="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold bg-amber-100 text-amber-700 shadow-sm animate-fade-in">
+                        Low Stock
+                    </span>
+                );
+
             default:
-                return <span className="catalog-badge-success">In Stock</span>;
+                return (
+                    <span className="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold bg-emerald-100 text-emerald-700 shadow-sm animate-fade-in">
+                        In Stock
+                    </span>
+                );
+
         }
     };
 
@@ -90,15 +105,15 @@ const ItemCard = ({ item, selectedItems, setSelectedItems }) => {
 
     return (
         <div
-            className={`bg-white border border-[#e8e2d9] rounded-2xl shadow-[0_2px_12px_-2px_hsl(25,25%,35%,0.08)] transition-all duration-300 ease-out hover:shadow-[0_8px_30px_-8px_hsl(15,85%,65%,0.25)] p-2 md:p-4 ${isAlreadySelected ? "border-2 border-[#f2805a]" : ""
+            className={`bg-white border rounded-2xl shadow-md hover:shadow-xl transition-all duration-300 ease-out p-3 md:p-4 ${isAlreadySelected ? "border-2 border-cyan-400" : "border-gray-200"
                 } fade-in`}
         >
             {/* Product Image Section */}
-            <div className="relative mb-3 rounded-xl overflow-hidden bg-[--muted]">
+            <div className="relative mb-3 rounded-xl overflow-hidden bg-gray-50">
                 <div className="aspect-square relative">
                     {!imageLoaded && (
-                        <div className="absolute inset-0 bg-[--muted] animate-pulse flex items-center justify-center">
-                            <Package className="w-8 h-8 text-[--muted-foreground]" />
+                        <div className="absolute inset-0 bg-gray-100 animate-pulse flex items-center justify-center">
+                            <Package className="w-8 h-8 text-gray-400" />
                         </div>
                     )}
                     <img
@@ -118,18 +133,18 @@ const ItemCard = ({ item, selectedItems, setSelectedItems }) => {
             {/* Product Details */}
             <div className="space-y-2">
                 {/* Product Name */}
-                <h3 className="font-semibold text-sm text-[--foreground] leading-snug line-clamp-2">
+                <h3 className="font-semibold text-sm text-gray-800 leading-snug line-clamp-2">
                     {item.name}
                 </h3>
 
                 {/* Price Row */}
                 <div className="flex items-center justify-between">
                     <div className="flex items-end gap-[2px]">
-                        <span className="text-xl font-bold text-[--primary]">
+                        <span className="text-xl font-bold bg-gradient-to-r from-green-700 to-cyan-500 bg-clip-text text-green-950">
                             {item.currency}
                             {priceAccordingToArea}
                         </span>
-                        <span className="mb-1 text-[10px] text-[--muted-foreground] leading-none">
+                        <span className="mb-1 text-[10px] text-gray-500 leading-none">
                             /{quantityAccordingToArea}
                         </span>
                     </div>
@@ -142,13 +157,12 @@ const ItemCard = ({ item, selectedItems, setSelectedItems }) => {
                                 : selectedCutSize[0]?.toLowerCase() === "m"
                                     ? "bg-pink-100 text-pink-700"
                                     : selectedCutSize[0]?.toLowerCase() === "l"
-                                        ? "bg-green-100 text-green-700"
+                                        ? "bg-lime-100 text-lime-700"
                                         : "bg-sky-100 text-sky-700"
                                 }`}
                         >
                             {selectedCutSize[0] || "W"}
                         </span>
-
                     )}
                 </div>
 
@@ -177,12 +191,10 @@ const ItemCard = ({ item, selectedItems, setSelectedItems }) => {
                 {/* Select Action */}
                 <div className="flex gap-2 pt-2">
                     <button
-                        className={`flex-1 text-xs px-3 py-2 rounded-xl border flex items-center justify-center gap-1 transition-all duration-200 ${isAlreadySelected
-                            ? "bg-[#f2805a] text-white border-[--ring]"
-                            : "bg-[#fffbf5] border-border text-[--foreground] hover:bg-[--muted]"
-                            } ${!selectedCut || item.stock === 0
-                                ? "opacity-50 cursor-not-allowed"
-                                : ""
+                        className={`flex-1 text-xs px-3 py-2 rounded-xl flex items-center justify-center gap-1 font-medium transition-all duration-200 ${isAlreadySelected
+                            ? "bg-gradient-to-r from-green-500 to-cyan-500 text-white shadow-lg"
+                            : "bg-gray-50 border border-gray-200 text-gray-700 hover:bg-gradient-to-r hover:from-lime-50 hover:to-cyan-50"
+                            } ${!selectedCut || item.stock === 0 ? "opacity-50 cursor-not-allowed" : ""
                             }`}
                         onClick={() => {
                             if (!selectedCut) {
@@ -202,6 +214,7 @@ const ItemCard = ({ item, selectedItems, setSelectedItems }) => {
                 </div>
             </div>
         </div>
+
     );
 };
 

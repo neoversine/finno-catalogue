@@ -47,14 +47,21 @@ const QuantitySelector = ({
             {/* Decrement Button */}
             <button
                 onClick={decrement}
-                className="w-6 md:w-8 h-6 md:h-8 flex items-center justify-center rounded-lg border border-gray-300 text-lg text-gray-700 hover:bg-gray-100 hover:text-red-600 active:text-red-600 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                className="w-6 md:w-8 h-6 md:h-8 flex items-center justify-center rounded-lg border text-lg 
+               transition-all duration-200 shadow-sm
+               border-gray-300 text-gray-700 
+               hover:bg-red-50 hover:border-red-400 hover:text-red-600 active:text-red-700 
+               disabled:opacity-50 disabled:cursor-not-allowed"
                 disabled={isAlreadySelected}
             >
                 −
             </button>
 
             {/* Quantity Display */}
-            <span className="flex justify-center grow py-1 bg-gray-50 border border-gray-300 rounded-lg text-sm text-gray-800">
+            <span
+                className="flex justify-center grow py-1 bg-white border border-gray-300 rounded-lg 
+               text-sm text-gray-800 shadow-sm"
+            >
                 {`${totalVal % 1 === 0 ? totalVal : totalVal.toFixed(2)} ${unit}${quantity > 1 ? "s" : ""
                     }`}
             </span>
@@ -62,12 +69,18 @@ const QuantitySelector = ({
             {/* Increment Button */}
             <button
                 onClick={increment}
-                className="w-6 h-6 md:w-8 md:h-8 flex items-center justify-center rounded-lg border border-gray-300 text-lg text-gray-700 hover:bg-gray-100 hover:text-green-600 active:text-green-600 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                className="w-6 h-6 md:w-8 md:h-8 flex items-center justify-center rounded-lg border text-lg
+               transition-all duration-200 shadow-sm
+               border-gray-300 text-gray-700
+               hover:bg-gradient-to-r hover:from-lime-100 hover:to-cyan-300 
+               hover:text-black active:scale-105 
+               disabled:opacity-50 disabled:cursor-not-allowed"
                 disabled={isAlreadySelected}
             >
                 +
             </button>
         </div>
+
 
     );
 };

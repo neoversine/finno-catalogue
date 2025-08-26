@@ -6,6 +6,10 @@ import ExcelReader from './components/ExcelReader';
 import { ToastContainer } from 'react-toastify';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import CompleteYourPayment from './pages/CompleteYourPayment';
+import LandingPage from './pages/LandingPage';
+import LoginPage from './pages/LoginPage';
+import CataloguePage from './pages/CataloguePage';
+import CatalougueLayout from './pages/CatalougueLayout';
 
 const App = () => {
 
@@ -41,6 +45,10 @@ const App = () => {
   return (
     <BrowserRouter>
       <Routes>
+        <Route path='/landing' element={<LandingPage />} />
+        <Route path='/login' element={<LoginPage />} />
+        <Route path='/catalogue' element={<CatalougueLayout />} />
+
         <Route path='/' element={
           <div>
             {
