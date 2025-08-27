@@ -2,15 +2,14 @@
 import React, { createContext, useState, useEffect, useContext } from "react";
 import Cookies from "js-cookie";
 
-// Create Context
 const UserContext = createContext(null);
 
-// ✅ Provider Component
 export default function UserProvider({ children }) {
     const [user, setUser] = useState(null);
     const [loading, setLoading] = useState(true);
     const [isLoggedIn, setIsLoggedIn] = useState(false);
     const [showAddressModal, setShowAddressModal] = useState(false);
+    const [defaultAddress, setDefaultAddress] = useState();
     const [sector, setSector] = useState("");
 
     const fetchProfile = async () => {
@@ -40,16 +39,17 @@ export default function UserProvider({ children }) {
                 if (!data.data.addresses || data.data.addresses.length === 0) {
                     setShowAddressModal(true);
                 }
+                else {
+                    setDefaultAddress(data.data.addresses.filter((ele) => ele.isDefault = true)[0]);
+                }
             } else {
                 Cookies.remove("accessToken");
                 setIsLoggedIn(false);
-                window.location.href = "/login";
             }
         } catch (err) {
             console.error("Profile fetch failed:", err);
             Cookies.remove("accessToken");
             setIsLoggedIn(false);
-            window.location.href = "/login";
         } finally {
             setLoading(false);
         }
@@ -69,13 +69,15 @@ export default function UserProvider({ children }) {
                 fetchProfile,
                 showAddressModal,
                 setShowAddressModal,
+                defaultAddress,
+                setDefaultAddress,
+                sector,
+                setSector,
             }}
         >
-            {children}
+            {!loading && children}
         </UserContext.Provider>
     );
 }
 
-// ✅ Custom Hook (safe to export with Fast Refresh)
-// eslint-disable-next-line react-refresh/only-export-components
-export const useUserContext = () => useContext(UserContext);
+export const useUserContext = () => { return useContext(UserContext) };

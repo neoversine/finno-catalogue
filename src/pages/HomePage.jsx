@@ -4,6 +4,7 @@ import TelegramButton from "../components/TelegramButton";
 import LoadingSpinner from "../components/LoadingSpinner";
 import Header from "../components/basic/Header";
 import { useProductsContext } from "../context/ProductContext";
+import NewHeader from "../components/basic/NewHeader";
 
 const HomePage = ({ address }) => {
     const [selectedItems, setSelectedItems] = useState([]);
@@ -15,7 +16,7 @@ const HomePage = ({ address }) => {
 
     return (
         <div className="min-h-screen">
-            <Header selectedItems={selectedItems} setSelectedItems={setSelectedItems} />
+            <NewHeader selectedItems={selectedItems} setSelectedItems={setSelectedItems} />
             <div className="max-w-6xl mx-auto max-xl:px-4 pb-32">
                 {/* Main Content */}
                 <main className="">

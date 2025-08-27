@@ -93,7 +93,7 @@ const TelegramButton = ({ address, selectedItems, setSelectedItems }) => {
     };
 
     return (
-        <div className="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 p-4 z-40 shadow-lg">
+        <div className="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 p-4 z-20 shadow-lg">
             <div className="max-w-6xl mx-auto">
                 <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-4">
 

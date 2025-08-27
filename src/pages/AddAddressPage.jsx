@@ -4,7 +4,7 @@ import Cookies from "js-cookie";
 import { notify } from "../lib/Toaster";
 import { useUserContext } from "../context/UserContext";
 
-const AddressModal = ({ onClose }) => {
+const AddAddressPage = ({ onClose }) => {
     const { user } = useUserContext();
     const [form, setForm] = useState({
         title: "",
@@ -231,4 +231,4 @@ const AddressModal = ({ onClose }) => {
     );
 };
 
-export default AddressModal;
+export default AddAddressPage;

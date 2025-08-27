@@ -6,11 +6,11 @@ import UserProvider from './context/UserContext.jsx'
 import { ProductProvider } from './context/ProductContext.jsx'
 
 createRoot(document.getElementById('root')).render(
-  <StrictMode>
-    <UserProvider>
-      <ProductProvider>
-        <App />
-      </ProductProvider>
-    </UserProvider>
-  </StrictMode>,
+  // <StrictMode>
+  <UserProvider>
+    <ProductProvider>
+      <App />
+    </ProductProvider>
+  </UserProvider>
+  // </StrictMode>,
 )

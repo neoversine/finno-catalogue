@@ -15,7 +15,7 @@ const ShoppingCartModal = ({ showCart, selectedItems, setSelectedItems }) => {
     return (
 
         <div
-            className={`absolute z-[50] top-20 right-1/2 max-md:translate-x-1/2 md:-right-3 w-full md:w-1/2 
+            className={`absolute z-[50] top-14 right-1/2 max-md:translate-x-1/2 md:right-0 max-md:w-[95%] md:w-7/12 
   bg-white shadow-2xl rounded-2xl border border-lime-400/40 transition-all duration-300 
   ${showCart ? "block" : "hidden"}`}
         >
