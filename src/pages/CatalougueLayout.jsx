@@ -9,7 +9,7 @@ const CatalougueLayout = () => {
 
     const navigate = useNavigate()
     useEffect(() => {
-        if (user && (!addresses || addresses.length) === 0) {
+        if ((!addresses || addresses.length) === 0) {
             navigate('/add-address');
         }
     }, [user, addresses, navigate]);
