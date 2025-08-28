@@ -15,7 +15,7 @@ const App = () => {
       <Routes>
         <Route path='/login' element={<LoginPage />} />
         <Route
-          path="/catalogue"
+          path="/"
           element={
             <ProtectedRoute isLoggedIn={isLoggedIn}>
               <CatalougueLayout />

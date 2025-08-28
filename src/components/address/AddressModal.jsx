@@ -1,11 +1,36 @@
 
 import React from 'react'
-import { NavLink } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 import { AddressDiv } from './AddressDiv';
+import { notify } from '../../lib/Toaster';
+import axiosInstance from '../../lib/axiosInstance';
+import Cookies from "js-cookie";
 
-
-export const AddressModal = ({ show, onClose, user, addresses, onLogout = () => { } }) => {
+export const AddressModal = ({ show, onClose, user, addresses }) => {
+    const navigate = useNavigate();
     if (!show) return null;
+    const onLogout = async () => {
+        try {
+            const res = await axiosInstance.post(`/auth/logout`);
+
+            console.log(res.data);
+
+            if (res.data.success) {
+                notify("Logged out successfully ✅", "success");
+
+                // clear token/cookies if needed
+                Cookies.remove("accessToken");
+
+                // redirect to login
+                navigate("/login"); // if using react-router's useNavigate
+                // or: window.location.href = "/login";
+            }
+        } catch (error) {
+            console.error("Error logging out:", error);
+            notify("Failed to logout ❌", "error");
+        }
+    };
+
 
     return (
         <div className="fixed inset-0 z-30 flex items-center justify-center h-screen bg-gradient-to-br from-green-100 via-white/70 to-cyan-100 backdrop-blur-sm">

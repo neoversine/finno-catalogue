@@ -1,11 +1,6 @@
-import { ShoppingCart } from 'lucide-react'
-import React, { useState } from 'react'
-import ShoppingCartModal from '../Items/ShoppingCartModal';
+import { useState } from 'react'
 import { useUserContext } from '../../context/UserContext';
-import { NavLink } from 'react-router-dom';
 
-import axios from "axios";
-import Cookies from "js-cookie";
 import { notify } from '../../lib/Toaster';
 import axiosInstance from '../../lib/axiosInstance';
 
@@ -19,16 +14,10 @@ export const AddressDiv = ({ addr }) => {
     // 📌 Handle Edit Save
     const handleEditSave = async () => {
         try {
-            const token = Cookies.get("accessToken");
             console.log(formData);
             const res = await axiosInstance.put(
                 `/address/update/${addr._id}`,
-                formData,
-                {
-                    headers: {
-                        Authorization: `Bearer ${token}`,
-                    },
-                }
+                formData
             );
 
             if (res.data.success) {
@@ -46,15 +35,8 @@ export const AddressDiv = ({ addr }) => {
     // 📌 Handle Delete
     const handleDelete = async (addressId) => {
         try {
-            const token = Cookies.get("accessToken");
-
             const res = await axiosInstance.delete(
-                `/address/delete/${addressId}`,
-                {
-                    headers: {
-                        Authorization: `Bearer ${token}`,
-                    },
-                }
+                `/address/delete/${addressId}`
             );
 
             if (res.data.success) {
@@ -71,17 +53,9 @@ export const AddressDiv = ({ addr }) => {
     // 📌 Handle Set Default
     const handleSetDefault = async (addressId) => {
         try {
-            const token = Cookies.get("accessToken");
 
             const res = await axiosInstance.put(
-                `/address/set-default/${addressId}`,
-                {}, // no body needed
-                {
-                    headers: {
-                        Authorization: `Bearer ${token}`,
-                    },
-                }
-            );
+                `/address/set-default/${addressId}`);
 
             console.log(res.data)
 

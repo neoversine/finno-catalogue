@@ -61,7 +61,7 @@ export default function LoginPage() {
                 Cookies.set("accessToken", data.data.accessToken, { expires: 7 });
                 notify("Login successful!");
                 await fetchProfile();
-                navigate('/catalogue');
+                navigate('/');
                 // redirect user to dashboard
             } else {
                 setError("Invalid OTP. Try again.");

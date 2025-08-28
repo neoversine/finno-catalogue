@@ -57,7 +57,7 @@ const AddAddressPage = () => {
             const data = res.data; // ✅ response body
             if (data.success) {
                 await fetchProfile();
-                navigate("/catalogue");
+                navigate("/");
             } else {
                 setError(data.message || "Failed to save address");
             }
@@ -73,7 +73,7 @@ const AddAddressPage = () => {
         if (!user.addresses || user.addresses.length === 0) {
             notify("Please add your address to continue", "error");
         } else {
-            navigate('/catalogue');
+            navigate('/');
         }
     };
 

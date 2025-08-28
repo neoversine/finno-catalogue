@@ -5,11 +5,6 @@ import { useUserContext } from '../../context/UserContext';
 import { AddressModal } from '../address/AddressModal';
 
 
-
-
-
-
-
 const NewHeader = ({ selectedItems, setSelectedItems }) => {
     const [showCart, setShowCart] = useState(false);
     const [showAddressModal, setShowAddressModal] = useState(false);

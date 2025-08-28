@@ -1,11 +1,11 @@
-import { useEffect, useRef, useState } from "react";
-import { Heart, ShoppingCart, Package } from "lucide-react";
+import { useRef, useState } from "react";
+import { ShoppingCart, Package } from "lucide-react";
 import QuantitySelector from "./QuantitySelector";
 import { notify } from "../../lib/Toaster";
 import CutSelector from "./CutSelector";
 import { useUserContext } from "../../context/UserContext";
 
-const ItemCard = ({ item, selectedItems, setSelectedItems, sector }) => {
+const ItemCard = ({ item, selectedItems, setSelectedItems }) => {
     const [selectedCut, setSelectedCut] = useState(null);
     const [totalQuantity, setTotalQuantity] = useState();
     const [imageLoaded, setImageLoaded] = useState(false);
