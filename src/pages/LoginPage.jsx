@@ -2,6 +2,9 @@
 import { useState, useEffect } from "react";
 import Cookies from "js-cookie";
 import { notify } from "../lib/Toaster";
+import { useNavigate } from "react-router-dom";
+import { useUserContext } from "../context/UserContext";
+import axiosInstance from "../lib/axiosInstance";
 
 export default function LoginPage() {
     const [step, setStep] = useState("mobile"); // mobile | otp
@@ -9,6 +12,10 @@ export default function LoginPage() {
     const [otp, setOtp] = useState("");
     const [error, setError] = useState("");
     const [timer, setTimer] = useState(0); // countdown for resend OTP
+
+    const { fetchProfile } = useUserContext();
+
+    const navigate = useNavigate();
 
     const validateMobile = (num) => {
         return /^[0-9]{10}$/.test(num);
@@ -21,10 +28,10 @@ export default function LoginPage() {
         }
         setError("");
         try {
-            await fetch("http://localhost:3001/auth/request-otp", {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ mobileNo: `+91${mobile}`, purpose: "LOGIN" })
+            // Request OTP
+            await axiosInstance.post("/auth/request-otp", {
+                mobileNo: `+91${mobile}`,
+                purpose: "LOGIN"
             });
             setStep("otp");
             setTimer(180); // start 3 min countdown
@@ -42,23 +49,25 @@ export default function LoginPage() {
         }
         setError("");
         try {
-            const res = await fetch("http://localhost:3001/auth/verify-otp", {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ mobileNo: `+91${mobile}`, otp })
+            // Verify OTP
+            const res = await axiosInstance.post("/auth/verify-otp", {
+                mobileNo: `+91${mobile}`,
+                otp
             });
+            const data = res.data;
 
-            const data = await res.json();
             if (data.success && data.data.accessToken) {
+                console.log("ssss")
                 Cookies.set("accessToken", data.data.accessToken, { expires: 7 });
                 notify("Login successful!");
+                await fetchProfile();
+                navigate('/catalogue');
                 // redirect user to dashboard
             } else {
                 setError("Invalid OTP. Try again.");
             }
-            // eslint-disable-next-line no-unused-vars
         } catch (err) {
-            setError("Verification failed. Try again.");
+            console.log("Verification failed. Try again.", err);
         }
     };
 

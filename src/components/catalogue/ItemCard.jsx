@@ -13,8 +13,9 @@ const ItemCard = ({ item, selectedItems, setSelectedItems, sector }) => {
     const [selectedCutSize, setSelectedCutSize] = useState("");
 
     const toastShownRef = useRef(false);
+    const { defaultAddress } = useUserContext();
 
-    const area = 'South Kolkata';
+    const area = defaultAddress.sector;
 
     const priceSplit = String(item.price).split(",");
     const selectedAreaIndex =
@@ -137,81 +138,89 @@ const ItemCard = ({ item, selectedItems, setSelectedItems, sector }) => {
                     {item.name}
                 </h3>
 
-                {/* Price Row */}
-                <div className="flex items-center justify-between">
-                    <div className="flex items-end gap-[2px]">
-                        <span className="text-xl font-bold bg-gradient-to-r from-green-700 to-cyan-500 bg-clip-text text-green-950">
-                            {item.currency}
-                            {priceAccordingToArea}
-                        </span>
-                        <span className="mb-1 text-[10px] text-gray-500 leading-none">
-                            /{quantityAccordingToArea}
-                        </span>
-                    </div>
 
-                    {/* Cut Size Badge */}
-                    {selectedCutSize && (
-                        <span
-                            className={`px-2 py-1 rounded-full text-xs font-bold uppercase tracking-wide ${selectedCutSize[0]?.toLowerCase() === "s"
-                                ? "bg-cyan-100 text-cyan-700"
-                                : selectedCutSize[0]?.toLowerCase() === "m"
-                                    ? "bg-pink-100 text-pink-700"
-                                    : selectedCutSize[0]?.toLowerCase() === "l"
-                                        ? "bg-lime-100 text-lime-700"
-                                        : "bg-sky-100 text-sky-700"
-                                }`}
-                        >
-                            {selectedCutSize[0] || "W"}
-                        </span>
-                    )}
-                </div>
+                {
+                    priceAccordingToArea != 'Unavailable' ?
+                        <>
+                            {/* Price Row */}
+                            <div className="flex items-center justify-between">
+                                <div className="flex items-end gap-[2px]">
+                                    <span className="text-xl font-bold bg-gradient-to-r from-green-700 to-cyan-500 bg-clip-text text-green-950">
+                                        {item.currency}
+                                        {priceAccordingToArea}
+                                    </span>
+                                    <span className="mb-1 text-[10px] text-gray-500 leading-none">
+                                        /{quantityAccordingToArea}
+                                    </span>
+                                </div>
 
-                {/* Cut Selector */}
-                <CutSelector
-                    cuts={cuts}
-                    selectedCut={selectedCut}
-                    setSelectedCut={setSelectedCut}
-                    selectedCutSize={selectedCutSize}
-                    setSelectedCutSize={setSelectedCutSize}
-                    availableCutSizes={item.sizesOfCutsAvailable}
-                    isAlreadySelected={isAlreadySelected}
-                    notify={notify}
-                />
+                                {/* Cut Size Badge */}
+                                {selectedCutSize && (
+                                    <span
+                                        className={`px-2 py-1 rounded-full text-xs font-bold uppercase tracking-wide ${selectedCutSize[0]?.toLowerCase() === "s"
+                                            ? "bg-cyan-100 text-cyan-700"
+                                            : selectedCutSize[0]?.toLowerCase() === "m"
+                                                ? "bg-pink-100 text-pink-700"
+                                                : selectedCutSize[0]?.toLowerCase() === "l"
+                                                    ? "bg-lime-100 text-lime-700"
+                                                    : "bg-sky-100 text-sky-700"
+                                            }`}
+                                    >
+                                        {selectedCutSize[0] || "W"}
+                                    </span>
+                                )}
+                            </div>
+                            {/* Cut Selector */}
+                            <CutSelector
+                                cuts={cuts}
+                                selectedCut={selectedCut}
+                                setSelectedCut={setSelectedCut}
+                                selectedCutSize={selectedCutSize}
+                                setSelectedCutSize={setSelectedCutSize}
+                                availableCutSizes={item.sizesOfCutsAvailable}
+                                isAlreadySelected={isAlreadySelected}
+                                notify={notify}
+                            />
 
-                {/* Quantity Selector */}
-                <QuantitySelector
-                    totalQuanitity={totalQuantity}
-                    setTotalQuantity={setTotalQuantity}
-                    quantity={quantity}
-                    setQuantity={setQuantity}
-                    isAlreadySelected={isAlreadySelected}
-                    min={item.minQuantityToBuy}
-                />
+                            {/* Quantity Selector */}
+                            <QuantitySelector
+                                totalQuanitity={totalQuantity}
+                                setTotalQuantity={setTotalQuantity}
+                                quantity={quantity}
+                                setQuantity={setQuantity}
+                                isAlreadySelected={isAlreadySelected}
+                                min={item.minQuantityToBuy}
+                            />
 
-                {/* Select Action */}
-                <div className="flex gap-2 pt-2">
-                    <button
-                        className={`flex-1 text-xs px-3 py-2 rounded-xl flex items-center justify-center gap-1 font-medium transition-all duration-200 ${isAlreadySelected
-                            ? "bg-gradient-to-r from-green-500 to-cyan-500 text-white shadow-lg"
-                            : "bg-gray-50 border border-gray-200 text-gray-700 hover:bg-gradient-to-r hover:from-lime-50 hover:to-cyan-50"
-                            } ${!selectedCut || item.stock === 0 ? "opacity-50 cursor-not-allowed" : ""
-                            }`}
-                        onClick={() => {
-                            if (!selectedCut) {
-                                notify("Please select a cut before proceeding!", "warning");
-                                return;
-                            }
-                            if (item.stock === 0) {
-                                notify("This item is out of stock!", "error");
-                                return;
-                            }
-                            handleSelect();
-                        }}
-                    >
-                        <ShoppingCart className="w-3 h-3" />
-                        {isAlreadySelected ? "Selected" : "Select"}
-                    </button>
-                </div>
+                            {/* Select Action */}
+                            <div className="flex gap-2 pt-2">
+                                <button
+                                    className={`flex-1 text-xs px-3 py-2 rounded-xl flex items-center justify-center gap-1 font-medium transition-all duration-200 ${isAlreadySelected
+                                        ? "bg-gradient-to-r from-green-500 to-cyan-500 text-white shadow-lg"
+                                        : "bg-gray-50 border border-gray-200 text-gray-700 hover:bg-gradient-to-r hover:from-lime-50 hover:to-cyan-50"
+                                        } ${!selectedCut || item.stock === 0 ? "opacity-50 cursor-not-allowed" : ""
+                                        }`}
+                                    onClick={() => {
+                                        if (!selectedCut) {
+                                            notify("Please select a cut before proceeding!", "warning");
+                                            return;
+                                        }
+                                        if (item.stock === 0) {
+                                            notify("This item is out of stock!", "error");
+                                            return;
+                                        }
+                                        handleSelect();
+                                    }}
+                                >
+                                    <ShoppingCart className="w-3 h-3" />
+                                    {isAlreadySelected ? "Selected" : "Select"}
+                                </button>
+                            </div>
+                        </> :
+
+                        <div className="text-xs text-orange-600">Currently, we don’t deliver this item to your sector.</div>
+
+                }
             </div>
         </div>
 

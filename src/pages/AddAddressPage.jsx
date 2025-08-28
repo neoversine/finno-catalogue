@@ -3,9 +3,11 @@ import React, { useState } from "react";
 import Cookies from "js-cookie";
 import { notify } from "../lib/Toaster";
 import { useUserContext } from "../context/UserContext";
+import { useNavigate } from "react-router-dom";
+import axiosInstance from "../lib/axiosInstance";
 
-const AddAddressPage = ({ onClose }) => {
-    const { user } = useUserContext();
+const AddAddressPage = () => {
+    const { user, addresses } = useUserContext();
     const [form, setForm] = useState({
         title: "",
         fullName: "",
@@ -17,9 +19,13 @@ const AddAddressPage = ({ onClose }) => {
         sector: "North Kolkata",
         state: "",
         pincode: "",
+        user: user._id,
+        isDefault: addresses.length == 0 ? true : false
     });
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState("");
+    const navigate = useNavigate();
+    const { fetchProfile } = useUserContext();
 
     const handleChange = (e) => {
         setForm({ ...form, [e.target.name]: e.target.value });
@@ -38,18 +44,20 @@ const AddAddressPage = ({ onClose }) => {
         }
 
         try {
-            const res = await fetch("http://localhost:3001/address/add", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                    Authorization: `Bearer ${token}`,
-                },
-                body: JSON.stringify(form),
-            });
+            const res = await axiosInstance.post(
+                "/address/add",
+                form,
+                {
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                    },
+                }
+            );
 
-            const data = await res.json();
+            const data = res.data; // ✅ response body
             if (data.success) {
-                onClose(); // close modal
+                await fetchProfile();
+                navigate("/catalogue");
             } else {
                 setError(data.message || "Failed to save address");
             }
@@ -65,7 +73,7 @@ const AddAddressPage = ({ onClose }) => {
         if (!user.addresses || user.addresses.length === 0) {
             notify("Please add your address to continue", "error");
         } else {
-            onClose();
+            navigate('/catalogue');
         }
     };
 

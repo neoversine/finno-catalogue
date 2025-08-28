@@ -1,14 +1,13 @@
 import { useState } from "react";
 import CategorySection from "../components/catalogue/CategorySection";
-import TelegramButton from "../components/TelegramButton";
 import LoadingSpinner from "../components/LoadingSpinner";
-import Header from "../components/basic/Header";
 import { useProductsContext } from "../context/ProductContext";
 import NewHeader from "../components/basic/NewHeader";
+import CheckoutSection from "../components/checkout/CheckoutSection";
 
-const HomePage = ({ address }) => {
+const HomePage = () => {
     const [selectedItems, setSelectedItems] = useState([]);
-    const { finnoItems, totalItems, isLoading } = useProductsContext();
+    const { finnoItems, isLoading } = useProductsContext();
 
     if (isLoading) {
         return <LoadingSpinner />;
@@ -48,13 +47,15 @@ const HomePage = ({ address }) => {
                 </main>
             </div>
 
+            <CheckoutSection cartItems={selectedItems} />
+
             {/* Sticky Telegram Button */}
-            <TelegramButton
+            {/* <TelegramButton
                 selectedItems={selectedItems}
                 totalItems={totalItems}
                 address={address}
                 setSelectedItems={setSelectedItems}
-            />
+            /> */}
         </div>
     );
 };

@@ -1,6 +1,7 @@
 "use client";
 import React, { createContext, useState, useEffect, useContext } from "react";
 import Cookies from "js-cookie";
+import axiosInstance from "../lib/axiosInstance";
 
 const UserContext = createContext(null);
 
@@ -10,6 +11,7 @@ export default function UserProvider({ children }) {
     const [isLoggedIn, setIsLoggedIn] = useState(false);
     const [showAddressModal, setShowAddressModal] = useState(false);
     const [defaultAddress, setDefaultAddress] = useState();
+    const [addresses, setAddresses] = useState([]);
     const [sector, setSector] = useState("");
 
     const fetchProfile = async () => {
@@ -22,26 +24,22 @@ export default function UserProvider({ children }) {
         }
 
         try {
-            const res = await fetch("http://localhost:3001/auth/profile", {
-                method: "GET",
-                headers: {
-                    Authorization: `Bearer ${token}`,
-                    "Content-Type": "application/json",
-                },
-            });
+            const profileRes = await axiosInstance.get("/auth/profile");
 
-            const data = await res.json();
+            const data = profileRes.data;
+            console.log(data);
 
             if (data.success) {
                 setUser(data.data);
-                setIsLoggedIn(true);
+                setAddresses(data.data.addresses);
 
-                if (!data.data.addresses || data.data.addresses.length === 0) {
-                    setShowAddressModal(true);
+                // pick default address if exists
+                const defaultAddr = data.data.addresses.find((addr) => addr.isDefault === true);
+                if (defaultAddr) {
+                    console.log(defaultAddr);
+                    setDefaultAddress(defaultAddr);
                 }
-                else {
-                    setDefaultAddress(data.data.addresses.filter((ele) => ele.isDefault = true)[0]);
-                }
+                setIsLoggedIn(true);
             } else {
                 Cookies.remove("accessToken");
                 setIsLoggedIn(false);
@@ -55,6 +53,36 @@ export default function UserProvider({ children }) {
         }
     };
 
+    const fetchAddresses = async () => {
+        try {
+            // Get all addresses
+            const addressRes = await axiosInstance.get("/address/all");
+
+            const data = addressRes.data;
+
+            console.log("Addresses:", data);
+
+            if (data.success) {
+                // Assuming backend sends { success: true, data: [...] }
+                setAddresses(data.data);
+
+                // pick default address if exists
+                const defaultAddr = data.data.find((addr) => addr.isDefault === true);
+                if (defaultAddr) {
+                    console.log(defaultAddr);
+                    setDefaultAddress(defaultAddr);
+                }
+            } else {
+                console.error("Failed to fetch addresses:", data.message);
+            }
+        } catch (err) {
+            console.error("Address fetch failed:", err);
+        } finally {
+            setLoading(false);
+        }
+    };
+
+
     useEffect(() => {
         fetchProfile();
     }, []);
@@ -67,10 +95,13 @@ export default function UserProvider({ children }) {
                 loading,
                 isLoggedIn,
                 fetchProfile,
+                fetchAddresses,
                 showAddressModal,
                 setShowAddressModal,
                 defaultAddress,
                 setDefaultAddress,
+                addresses,
+                setAddresses,
                 sector,
                 setSector,
             }}
