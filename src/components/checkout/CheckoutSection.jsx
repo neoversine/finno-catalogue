@@ -128,7 +128,7 @@ export default function CheckoutSection({ cartItems }) {
                                         ) : paymentMode === "COD" ? (
                                             <>
                                                 <p className="text-xl font-extrabold bg-gradient-to-r from-lime-600 to-cyan-600 bg-clip-text text-transparent">
-                                                    ₹{totalBill}
+                                                    ₹{(totalBill + 29).toFixed(2)}
                                                 </p>
                                                 <p className="text-xs text-red-600 font-medium">+₹29 COD Charge</p>
                                             </>
