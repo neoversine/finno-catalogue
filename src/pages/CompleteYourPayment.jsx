@@ -40,7 +40,7 @@ export default function CompleteYourPayment() {
                 {/* CTA Button */}
                 <button
                     className="bg-[#f2805a] hover:bg-[#e57048] transition-colors text-white px-6 py-3 rounded-xl text-sm font-medium shadow-lg"
-                    onClick={() => window.open(`https://wa.me/${user?.mobileNo}`, "_blank")}
+                    onClick={() => window.open(`https://wa.me/+1(415)523-8886`, "_blank")}
                 >
                     Open WhatsApp
                 </button>
