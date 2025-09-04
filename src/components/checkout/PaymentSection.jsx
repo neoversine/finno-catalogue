@@ -4,10 +4,17 @@ import { motion } from "framer-motion";
 export default function PaymentSection({ paymentMode, setPaymentMode, handlePlaceOrder }) {
     return (
         <div className="w-full max-w-6xl bg-white rounded-2xl shadow-lg p-4 border border-gray-100">
-            <div className="flex flex-col md:flex-row md:justify-between md:items-center gap-6">
+            <div className="flex flex-col md:flex-row md:justify-between md:items-center gap-4 md:gap-6">
                 <div className="flex flex-col gap-2">
-                    <h1 className="TEXT-SM font-medium tracking-wide">Select Mode Of Payment</h1>
-                    {/* Payment Options */}
+                    <h1
+                        className=" text-sm font-medium tracking-wide"
+                        style={{
+                            display: window.innerHeight < 700 ? "none" : "block"
+                        }}
+                    >
+                        Select Mode Of Payment
+                    </h1>
+
                     <motion.div
                         className="flex w-full md:w-auto bg-gray-100 rounded-xl p-1"
                         initial={{ opacity: 0 }}
@@ -35,9 +42,25 @@ export default function PaymentSection({ paymentMode, setPaymentMode, handlePlac
                                                 : "bg-green-100 text-green-700"
                                             }`}
                                     >
-                                        10% OFF
+                                        5% OFF
                                     </span>
                                 )}
+
+                                {/* Show COD */}
+                                {mode === "COD" && (
+                                    <span
+                                        className={`absolute -top-2 -left-2 text-[10px] font-bold px-2 py-0.5 rounded-full shadow-md
+      ${paymentMode === "COD"
+                                                ? "bg-red-200 text-red-800"
+                                                : "bg-red-100 text-red-700"
+                                            }`}
+                                    >
+                                        +₹29
+                                    </span>
+                                )}
+
+
+
                             </motion.button>
                         ))}
                     </motion.div>

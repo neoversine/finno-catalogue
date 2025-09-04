@@ -60,13 +60,6 @@ const HomePage = () => {
 
             <CheckoutSection cartItems={selectedItems} />
 
-            {/* Sticky Telegram Button */}
-            {/* <TelegramButton
-                selectedItems={selectedItems}
-                totalItems={totalItems}
-                address={address}
-                setSelectedItems={setSelectedItems}
-            /> */}
         </div>
     );
 };
