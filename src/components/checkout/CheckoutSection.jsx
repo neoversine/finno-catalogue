@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useUserContext } from "../../context/UserContext";
 import PaymentSection from "./PaymentSection";
 import { useNavigate } from "react-router-dom";
+import { notify } from "../../lib/Toaster";
 
 export default function CheckoutSection({ cartItems }) {
     const { user, defaultAddress } = useUserContext();
@@ -10,7 +11,12 @@ export default function CheckoutSection({ cartItems }) {
     const [loading, setLoading] = useState(false);
     const [totalBill, setTotalBill] = useState(0);
     const handlePlaceOrder = () => {
-        setShowModal(true);
+        if (totalBill > 500) {
+            setShowModal(true);
+        }
+        else {
+            notify("Order total must be at least ₹500", "warn");
+        }
     };
 
     const navigate = useNavigate();
