@@ -26,7 +26,7 @@ export default function CheckoutSection({ cartItems }) {
                 cashOnDelivery: paymentMode === "COD",
                 totalCartBill: paymentMode === "Online"
                     ? (totalBill * 0.9).toFixed(2)   // 10% OFF
-                    : totalBill.toFixed(2)
+                    : (totalBill + 29).toFixed(2)
             };
 
             const response = await fetch(
@@ -119,13 +119,18 @@ export default function CheckoutSection({ cartItems }) {
                                         {/* If Online Payment → show discount */}
                                         {paymentMode === "Online" ? (
                                             <>
-                                                <p className="text-xs text-gray-500 line-through">
-                                                    ₹{totalBill}
-                                                </p>
+                                                <p className="text-xs text-gray-500 line-through">₹{totalBill}</p>
                                                 <p className="text-xl font-extrabold bg-gradient-to-r from-lime-600 to-cyan-600 bg-clip-text text-transparent">
                                                     ₹{(totalBill * 0.9).toFixed(2)}
                                                 </p>
                                                 <p className="text-xs text-green-600 font-medium">10% OFF Applied</p>
+                                            </>
+                                        ) : paymentMode === "COD" ? (
+                                            <>
+                                                <p className="text-xl font-extrabold bg-gradient-to-r from-lime-600 to-cyan-600 bg-clip-text text-transparent">
+                                                    ₹{totalBill}
+                                                </p>
+                                                <p className="text-xs text-red-600 font-medium">+₹29 COD Charge</p>
                                             </>
                                         ) : (
                                             <p className="text-xl font-extrabold bg-gradient-to-r from-lime-600 to-cyan-600 bg-clip-text text-transparent">
@@ -133,6 +138,7 @@ export default function CheckoutSection({ cartItems }) {
                                             </p>
                                         )}
                                     </div>
+
                                 </div>
 
 
