@@ -64,7 +64,7 @@ export default function CheckoutSection({ cartItems }) {
     }, [cartItems])
 
     return (
-        <div className="fixed bottom-0 w-full">
+        <div className="fixed bottom-0 w-full z-70">
             <div className="flex justify-center w-full border-t border-gray-200 bg-white/70 backdrop-blur-md p-4 rounded-t-2xl shadow-lg">
                 {/* Payment Mode */}
                 <PaymentSection paymentMode={paymentMode} setPaymentMode={setPaymentMode} handlePlaceOrder={handlePlaceOrder} />
