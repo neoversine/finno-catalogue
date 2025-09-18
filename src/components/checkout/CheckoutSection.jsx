@@ -130,10 +130,23 @@ export default function CheckoutSection({ cartItems }) {
                                                 <p className="text-xl font-extrabold bg-gradient-to-r from-lime-600 to-cyan-600 bg-clip-text text-transparent">
                                                     ₹{(totalBill - Math.min(totalBill * 0.05, 100)).toFixed(2)}
                                                 </p>
+                                                <p className="text-sm font-semibold text-green-700 flex items-center gap-1">
+                                                    <svg
+                                                        xmlns="http://www.w3.org/2000/svg"
+                                                        className="h-4 w-4 text-green-600"
+                                                        fill="none"
+                                                        viewBox="0 0 24 24"
+                                                        stroke="currentColor"
+                                                    >
+                                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                                                    </svg>
+                                                    5% OFF (Upto ₹100)
+                                                </p>
                                                 <p className="text-xs text-green-600 font-medium">
-                                                    ₹{Math.min(totalBill * 0.05, 100).toFixed(2)} OFF Applied
+                                                    ₹{Math.min(totalBill * 0.05, 100).toFixed(2)} Discount Applied
                                                 </p>
                                             </>
+
                                         ) : paymentMode === "COD" ? (
                                             <>
                                                 <p className="text-xl font-extrabold bg-gradient-to-r from-lime-600 to-cyan-600 bg-clip-text text-transparent">
