@@ -25,16 +25,17 @@ export default function CheckoutSection({ cartItems }) {
         setLoading(true); // start loading
 
         try {
+            const discount = Math.min(totalBill * 0.05, 100);
+
             const webhookData = {
                 mobileNo: user?.mobileNo,
                 address: defaultAddress,
                 cartItems,
                 cashOnDelivery: paymentMode === "COD",
                 totalCartBill: paymentMode === "Online"
-                    ? (totalBill * 0.9).toFixed(2)   // 10% OFF
+                    ? (totalBill - discount).toFixed(2)   // 5% OFF upto ₹100
                     : (totalBill + 29).toFixed(2)
             };
-
             const response = await fetch(
                 "https://n8n.finnofarms.in/webhook/4b09e954-9fa8-4639-a035-af152d6ba34e",
                 {
@@ -127,9 +128,11 @@ export default function CheckoutSection({ cartItems }) {
                                             <>
                                                 <p className="text-xs text-gray-500 line-through">₹{totalBill}</p>
                                                 <p className="text-xl font-extrabold bg-gradient-to-r from-lime-600 to-cyan-600 bg-clip-text text-transparent">
-                                                    ₹{(totalBill * 0.9).toFixed(2)}
+                                                    ₹{(totalBill - Math.min(totalBill * 0.05, 100)).toFixed(2)}
                                                 </p>
-                                                <p className="text-xs text-green-600 font-medium">10% OFF Applied</p>
+                                                <p className="text-xs text-green-600 font-medium">
+                                                    ₹{Math.min(totalBill * 0.05, 100).toFixed(2)} OFF Applied
+                                                </p>
                                             </>
                                         ) : paymentMode === "COD" ? (
                                             <>
@@ -143,6 +146,7 @@ export default function CheckoutSection({ cartItems }) {
                                                 ₹{totalBill}
                                             </p>
                                         )}
+
                                     </div>
 
                                 </div>
